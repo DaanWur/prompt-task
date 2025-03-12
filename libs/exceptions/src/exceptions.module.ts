@@ -3,10 +3,21 @@ import {
   UserNotFoundException,
   FailedPromptCreation,
   SanitizeException,
+  RegistrationException,
 } from './';
 
 @Module({
-  providers: [UserNotFoundException, FailedPromptCreation, SanitizeException],
-  exports: [UserNotFoundException, FailedPromptCreation, SanitizeException],
+  providers: [
+    UserNotFoundException,
+    FailedPromptCreation,
+    SanitizeException,
+    RegistrationException,
+  ],
+  exports: [
+    UserNotFoundException,
+    FailedPromptCreation,
+    SanitizeException,
+    RegistrationException,
+  ],
 })
 export class ExceptionsModule {}

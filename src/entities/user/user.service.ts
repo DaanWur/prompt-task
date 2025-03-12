@@ -3,6 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { UserDto } from 'src/dtos/user/user.dto';
 import * as bcrypt from 'bcrypt';
+import { RegistrationException, UserNotFoundException } from '@app/exceptions';
 
 @Injectable()
 export class UserService {
@@ -19,9 +20,7 @@ export class UserService {
     } catch (error) {
       const message = `Error in register: ${error.message}, stack: ${error.stack}`;
       this.logger.error(message);
-
-      //TODO: throw custom error
-      throw error;
+      throw new RegistrationException(message);
     }
   }
 
@@ -31,8 +30,7 @@ export class UserService {
     } catch (error) {
       const message = `Error in findOneByEmail: ${error.message}, stack: ${error.stack}`;
       this.logger.error(message);
-      // TODO: throw custom error
-      throw error;
+      throw new UserNotFoundException(message);
     }
   }
 }
