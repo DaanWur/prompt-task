@@ -23,6 +23,12 @@ npm install
    Create a `.env` file in the root directory and add the following:
 
 ```env
+POSTGRES_USER=db user
+POSTGRES_PASSWORD=db password
+POSTGRES_DB=db name
+JWT_CONSTANT=a constant to use for password hashing
+PORT=port-number
+DATABASE_URL=valid-RDBMS-connection-url
 LLM_NAME=your-llm-model-name
 ```
 
