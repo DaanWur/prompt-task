@@ -1,8 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UserNotFoundException, FailedPromptCreation } from './';
+import {
+  UserNotFoundException,
+  FailedPromptCreation,
+  SanitizeException,
+} from './';
 
 @Module({
-  providers: [UserNotFoundException, FailedPromptCreation],
-  exports: [UserNotFoundException, FailedPromptCreation],
+  providers: [UserNotFoundException, FailedPromptCreation, SanitizeException],
+  exports: [UserNotFoundException, FailedPromptCreation, SanitizeException],
 })
 export class ExceptionsModule {}
