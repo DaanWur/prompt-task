@@ -8,9 +8,9 @@ export class PromptService {
   private readonly logger = new Logger(PromptService.name);
   constructor(private readonly invoker: Invoker) {}
 
-  async createPrompt(prompt: string) {
+  async sanitize(prompt: string) {
     try {
-      this.invoker.setEmailSanitizer(new EmailSanitizerCommand());
+      this.invoker.setSanitizer(new EmailSanitizerCommand());
 
       return this.invoker.sanitizePrompt(prompt);
     } catch (error) {

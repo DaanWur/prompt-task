@@ -1,4 +1,4 @@
 export class PromptAnswerDto {
-  prompt: string;
+  sanitizedPrompt: string;
   emails: string[];
 }

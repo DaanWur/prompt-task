@@ -11,15 +11,18 @@ export class EmailSanitizerCommand implements SanitizeCommand {
   }
 
   private replaceEmails(prompt: string): PromptAnswerDto {
-    const emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
+    const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/gi;
     const result: PromptAnswerDto = {
       emails: [] as string[],
-      prompt: prompt,
+      sanitizedPrompt: prompt,
     };
-    result.prompt = result.prompt.replace(emailRegex, (match) => {
-      result.emails.push(match);
-      return 'xxx@my.email';
-    });
+    result.sanitizedPrompt = result.sanitizedPrompt.replace(
+      emailRegex,
+      (match) => {
+        result.emails.push(match);
+        return 'xxx@my.email';
+      },
+    );
     this.logger.log(`Replaced emails: ${result.emails.join(', ')}`);
     return result;
   }
