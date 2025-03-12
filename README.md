@@ -2,7 +2,7 @@
 
 ## Overview
 
-The LLM Service is a Node.js application that leverages the `node-llama-cpp` library to interact with the Llama language model. This service initializes the Llama model, creates a context and session, and provides an API to generate responses based on input messages.
+The LLM Service is a Node.js application that uses the `node-llama-cpp` library to interact with the Llama language model. It sanitizes input messages before processing them with the Llama model to ensure safe and appropriate responses. The service initializes the Llama model, creates a context and session, and provides an API to generate sanitized responses from input messages.
 
 ## Instructions for Using the Service
 
