@@ -19,11 +19,7 @@ export class LlmService {
     const { getLlama, LlamaChatSession } = await this.myLogic();
     this.llama = await getLlama();
     this.model = await this.llama.loadModel({
-      modelPath: path.join(
-        '/Users/daniel.w/.node-llama-cpp/',
-        'models',
-        this.configService.getOrThrow('LLM_NAME'),
-      ),
+      modelPath: path.join(this.configService.getOrThrow<string>('MODEL_PATH')),
     });
     this.context = await this.model.createContext();
     this.session = new LlamaChatSession({

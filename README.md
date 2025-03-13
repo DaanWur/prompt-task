@@ -2,7 +2,9 @@
 
 ## Overview
 
-The LLM Service is a Node.js application that uses the `node-llama-cpp` library to interact with the Llama language model. It sanitizes input messages before processing them with the Llama model to ensure safe and appropriate responses. The service initializes the Llama model, creates a context and session, and provides an API to generate sanitized responses from input messages.
+This project is an LLM gateway designed to sanitize prompts before they are sent to an AI model and after responses are received.
+It runs in Docker using docker-compose, with PostgreSQL as the database and NestJS as the backend framework.
+For model execution, it leverages `node-llama-cpp`. During each `docker-compose build`, a predefined AI model is automatically downloaded and included in the generated container. In order to use this api you would have to register and login onto it.
 
 ## Instructions for Using the Service
 
@@ -22,24 +24,22 @@ npm install
 1. **Set up environment variables:**
    Create a `.env` file in the root directory and add the following:
 
-```env
-POSTGRES_USER=db user
+`POSTGRES_USER=db user
 POSTGRES_PASSWORD=db password
 POSTGRES_DB=db name
 JWT_CONSTANT=a constant to use for password hashing
 PORT=port-number
 DATABASE_URL=valid-RDBMS-connection-url
-LLM_NAME=your-llm-model-name
-```
+LLM_NAME=your-llm-model-name`
 
-4. **Download LLM model:**
-   Use the following command to choose which LLM to download to your local machine
+1. **Build the project:**
+   Use the following command to build the porject
 
 ```bash
-npx --no node-llama-cpp chat
+npm run build
 ```
 
-5. **Init the Database:**
+5. **Build using Docker-compose:**
    Run
 
 ```bash
@@ -47,14 +47,45 @@ docker-compose build
 docker-compose up
 ```
 
-- Note that the node server will fail unless you dockerize a model within the machine
-
 6. **Run the service:**
-   In case the docker fails, the postgres instance will be on the air and you can run the app from the terminal:
+
+```bash
+docker-compose up
+```
+
+**In case Docker fails:**
+You can run the project locally, by running the database on docker and then run the following command.
+You will need to download a model of your choice to your local machine and adjust the .env accordingly
 
 ```bash
 npm run start
 ```
+
+## API
+
+**All endpoints besides register and login will be protected with a JWT token which will be recieved after login in order to use it set it as bearer token in postman**
+
+- **register:** `http://localhost:8080/user/register`
+  payload:
+  `{
+"email": email string,
+"firstName": string,
+"lastName": string,
+"password": string - minLength: 8, minLowercase: 1, minUppercase: 1, minSymbols: 1, minNumbers: 1,
+}`
+
+- **login:** `http://localhost:8080/auth/login`  
+   payload:
+  `{
+   "email": string,
+   "password": string
+}`
+
+- **prompt:** `http://localhost:8080/prompt`
+  payload:
+  `{
+   "prompt": string
+}`
 
 ## Technical Choices
 
