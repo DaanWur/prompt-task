@@ -19,7 +19,7 @@ cd llm-service
 npm install
 ```
 
-3. **Set up environment variables:**
+1. **Set up environment variables:**
    Create a `.env` file in the root directory and add the following:
 
 ```env
@@ -32,41 +32,36 @@ DATABASE_URL=valid-RDBMS-connection-url
 LLM_NAME=your-llm-model-name
 ```
 
-4. **Run the service:**
+4. **Download LLM model:**
+   Use the following command to choose which LLM to download to your local machine
 
 ```bash
-npm run start
+npx --no node-llama-cpp chat
 ```
 
-5. **Run with Docker Compose:**
-
-Alternatively, you can run the service using Docker Compose. Create a `docker-compose.yml` file in the root directory with the following content:
-
-```yaml
-version: '3'
-services:
-  llm-service:
-    image: your-docker-image
-    environment:
-      - LLM_NAME=your-llm-model-name
-    ports:
-      - '3000:3000'
-```
-
-Then, run the following commands:
+5. **Init the Database:**
+   Run
 
 ```bash
 docker-compose build
 docker-compose up
 ```
 
+- Note that the node server will fail unless you dockerize a model within the machine
+
+6. **Run the service:**
+   In case the docker fails, the postgres instance will be on the air and you can run the app from the terminal:
+
+```bash
+npm run start
+```
+
 ## Technical Choices
 
 ### Libraries
 
-- **nestjs/common:** Provides essential decorators and utilities for building a NestJS application.
-- **nestjs/config:** Manages configuration and environment variables in a NestJS application.
-- **node-llama-cpp:** Interacts with the Llama language model, providing methods to load the model, create contexts, and generate responses.
+- **NestJS:** NestJS provides a structured, scalable, and maintainable codebase with built-in TypeScript support, making it a strong choice for projects that require clean architecture.
+- **node-llama-cpp:** Interacts with LLM that runs locally and creates a seamless communication with them, providing methods to load the model, create contexts, and generate responses.
 
 ### Database
 
