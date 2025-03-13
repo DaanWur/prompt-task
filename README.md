@@ -22,7 +22,7 @@ cd llm-service
 npm install
 ```
 
-1. **Set up environment variables:**
+3. **Set up environment variables:**
    Create a `.env` file in the root directory and add the following:
 
 ```
@@ -35,14 +35,14 @@ DATABASE_URL=valid-RDBMS-connection-url
 LLM_NAME=your-llm-model-name
 ```
 
-1. **Build the project:**
+4. **Build the project:**
    Use the following command to build the porject
 
 ```bash
 npm run build
 ```
 
-2. **Build using Docker-compose:**
+5. **Build using Docker-compose:**
    Run
 
 ```bash
@@ -50,11 +50,13 @@ docker-compose build
 docker-compose up
 ```
 
-3. **Run the service:**
+6. **Run the service:**
 
 ```bash
 docker-compose up
 ```
+
+**Or just run `npm run build:start:prod`**
 
 **In case Docker fails:**
 You can run the project locally, by running the database on docker and then run the following command.
@@ -68,7 +70,7 @@ npm run start
 
 **All endpoints besides register and login will be protected with a JWT token which will be recieved after login in order to use it set it as bearer token in postman**
 
-- **register:** `http://localhost:8080/user/register`  POST
+- **register:** `http://localhost:8080/user/register` POST
   payload:
 
   ```
@@ -81,8 +83,8 @@ npm run start
 
   ```
 
-- **login:** `http://localhost:8080/auth/login`  POST
-   payload:
+- **login:** `http://localhost:8080/auth/login` POST
+  payload:
 
   ```
   {
@@ -92,15 +94,16 @@ npm run start
 
   ```
 
-- **prompt:** `http://localhost:8080/prompt`  POST
+- **prompt:** `http://localhost:8080/prompt` POST
   payload:
+
   ```
   {
    "prompt": string
   }
   ```
 
-- **profile:** `http://localhost:8080/auth/profile`  GET
+- **profile:** `http://localhost:8080/auth/profile` GET
 
 ## Technical Choices
 

@@ -25,11 +25,11 @@ export class PromptService {
    */
   async createPrompt(promptDto: PromptDto): Promise<ModelSanitizedResponseDto> {
     const cacheKey = this.cachingService.generateCacheKey(promptDto.prompt);
+
     try {
       const cachedResponse =
         await this.cachingService.getCachedResponse(cacheKey);
       if (cachedResponse) {
-        this.logger.log('Returning cached response');
         return cachedResponse;
       }
 
