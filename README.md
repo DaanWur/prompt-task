@@ -53,9 +53,10 @@ services:
       - '3000:3000'
 ```
 
-Then, run the following command:
+Then, run the following commands:
 
 ```bash
+docker-compose build
 docker-compose up
 ```
 
@@ -69,25 +70,25 @@ docker-compose up
 
 ### Database
 
-No database is used in this service as it primarily focuses on interacting with the Llama language model. However, for production use, a database might be required to store user sessions, logs, and other relevant data.
+- **PostgreSQL:** The service uses PostgreSQL for storing user data. The database is deployed using Docker for easy setup and management.
 
 ## Limitations
 
 - The service currently supports only one Llama model at a time.
 - Error handling is basic and may need enhancements for production use.
-- The service does not include authentication or authorization mechanisms.
+- Communication with the model is slow and the model is stored locally.
 
 ## Future Features/Requirements for Production Readiness
 
-- **Authentication and Authorization:** Implement security measures to restrict access to the service.
+- **Authorization:** Implement security measures to restrict access to the service on a role basis.
 - **Scalability:** Add support for multiple instances of the Llama model to handle increased load.
 - **Logging and Monitoring:** Integrate logging and monitoring tools to track service performance and errors.
-- **Database Integration:** Store user sessions, logs, and other relevant data in a database.
-- **API Documentation:** Provide comprehensive API documentation for developers.
+- **Database Integration:** Further enchance the use of Databace in order to store user sessions, logs, and other relevant data in a database.
 
 ## Performance Improvement Ideas
 
-- **Caching:** Implement caching mechanisms to store frequently requested responses and reduce model load times.
+- **Caching:** Implement a more accurate caching mechanisms to store frequently requested responses and reduce model load times.
 - **Load Balancing:** Distribute incoming requests across multiple instances of the service to improve performance.
-- **Asynchronous Processing:** Use asynchronous processing for long-running tasks to improve response times.
 - **Resource Optimization:** Optimize resource usage by fine-tuning the Llama model and context creation processes.
+- **LLM integration:** Store the LLM on a separate machine to reduce initialization time.
+- **Prallelism:** Create a mechanism that handles many requests at once.
