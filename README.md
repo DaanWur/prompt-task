@@ -2,9 +2,9 @@
 
 ## Overview
 
-This project is an LLM gateway designed to sanitize prompts before they are sent to an AI model and after responses are received.
-It runs in Docker using docker-compose, with PostgreSQL as the database and NestJS as the backend framework.
-For model execution, it leverages `node-llama-cpp`. During each `docker-compose build`, a predefined AI model is automatically downloaded and included in the generated container. In order to use this api you would have to register and login onto it.
+This project is an LLM gateway that ensures prompt sanitization both before they are sent to an AI model and after responses are received.
+It runs in Docker using `docker-compose`, with `PostgreSQL` as the database and `NestJS` as the backend framework. Model execution is handled by `node-llama-cpp`, and during each `docker-compose` build, a predefined AI model is automatically downloaded and integrated into the container.
+Access to the API requires user registration and authentication, as all endpoints are secured with `JWT-based` authentication.
 
 ## Instructions for Using the Service
 
@@ -41,7 +41,7 @@ LLM_NAME=your-llm-model-name
 npm run build
 ```
 
-5. **Build using Docker-compose:**
+2. **Build using Docker-compose:**
    Run
 
 ```bash
@@ -49,7 +49,7 @@ docker-compose build
 docker-compose up
 ```
 
-6. **Run the service:**
+3. **Run the service:**
 
 ```bash
 docker-compose up
