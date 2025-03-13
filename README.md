@@ -9,7 +9,7 @@ The LLM Service is a Node.js application that uses the `node-llama-cpp` library 
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/your-repo/llm-service.git
+[git clone https://github.com/your-repo/llm-service.git](https://github.com/DaanWur/prompt-task.git)
 cd llm-service
 ```
 
