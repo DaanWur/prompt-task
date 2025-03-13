@@ -10,9 +10,7 @@ import { AuthController } from './auth.controller';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-    }),
+    ConfigModule.forRoot({}),
     JwtModule.registerAsync({
       imports: [ConfigModule, UserModule],
       useFactory: async (configService: ConfigService) => ({

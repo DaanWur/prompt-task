@@ -6,6 +6,7 @@ import { PromptModule } from './entities/prompt/prompt.module';
 import { LlmModule } from './llm-model/llm.module';
 import { InvokerModule } from './sanitizers/invoker.module';
 import { CacheModule } from '@nestjs/cache-manager';
+import { CachingModule } from '@app/cache';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { CacheModule } from '@nestjs/cache-manager';
       isGlobal: true,
     }),
     CacheModule.register({ isGlobal: true }),
+    CachingModule,
     AuthModule,
     UserModule,
     PromptModule,

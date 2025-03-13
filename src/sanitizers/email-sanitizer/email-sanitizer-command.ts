@@ -33,6 +33,9 @@ export class EmailSanitizerCommand implements SanitizeCommand {
     result.sanitizedPrompt = result.sanitizedPrompt.replace(
       emailRegex,
       (match) => {
+        if (match === 'xxx@my.email') {
+          return match;
+        }
         result.emails.push(match);
         return 'xxx@my.email';
       },

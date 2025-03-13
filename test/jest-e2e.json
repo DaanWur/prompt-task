@@ -16,6 +16,8 @@
     "@app/exceptions/(.*)": "<rootDir>/../libs/exceptions/src/$1",
     "@app/exceptions": "<rootDir>/../libs/exceptions/src",
     "@app/prisma/(.*)": "<rootDir>/../libs/prisma/src/$1",
-    "@app/prisma": "<rootDir>/../libs/prisma/src"
+    "@app/prisma": "<rootDir>/../libs/prisma/src",
+    "@app/cache/(.*)": "<rootDir>/../libs/cache/src/$1",
+    "@app/cache": "<rootDir>/../libs/cache/src"
   }
 }

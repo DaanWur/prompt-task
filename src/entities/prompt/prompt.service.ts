@@ -1,7 +1,6 @@
+import { CachingService } from '@app/cache';
 import { FailedPromptCreation, SanitizeException } from '@app/exceptions';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { Cache } from 'cache-manager';
+import { Injectable, Logger } from '@nestjs/common';
 import { ModelSanitizedResponseDto } from 'src/dtos/prompt/model-sanitized-response.dto';
 import { PromptDto } from 'src/dtos/prompt/prompt.dto';
 import { LlmService } from 'src/llm-model/llm.service';
@@ -13,9 +12,9 @@ export class PromptService {
   private readonly logger = new Logger(PromptService.name);
 
   constructor(
-    @Inject(CACHE_MANAGER) private cacheManager: Cache,
     private readonly invoker: Invoker,
     private readonly llmService: LlmService,
+    private readonly cachingService: CachingService,
   ) {}
 
   /**
@@ -25,12 +24,12 @@ export class PromptService {
    * @returns The sanitized response including sanitized emails and prompt.
    */
   async createPrompt(promptDto: PromptDto): Promise<ModelSanitizedResponseDto> {
-    const cacheKey = `stored_prompt_${promptDto.prompt}`;
-
+    const cacheKey = this.cachingService.generateCacheKey(promptDto.prompt);
     try {
-      // Check if the response is already cached
-      const cachedResponse = await this.getCachedResponse(cacheKey);
+      const cachedResponse =
+        await this.cachingService.getCachedResponse(cacheKey);
       if (cachedResponse) {
+        this.logger.log('Returning cached response');
         return cachedResponse;
       }
 
@@ -47,28 +46,11 @@ export class PromptService {
       );
 
       // Cache the final response
-      await this.cacheResponse(cacheKey, finalResponse);
+      await this.cachingService.cacheResponse(cacheKey, finalResponse);
       return finalResponse;
     } catch (error) {
       this.handleError(error);
     }
-  }
-
-  /**
-   * Retrieves a cached response if it exists.
-   * @param cacheKey - The key used to store the cached response.
-   * @returns The cached response or null if not found.
-   */
-  private async getCachedResponse(
-    cacheKey: string,
-  ): Promise<ModelSanitizedResponseDto | null> {
-    const cachedResponse =
-      await this.cacheManager.get<ModelSanitizedResponseDto>(cacheKey);
-    if (cachedResponse) {
-      this.logger.log('Returning cached response');
-      return cachedResponse;
-    }
-    return null;
   }
 
   /**
@@ -115,18 +97,6 @@ export class PromptService {
       emailsSanitized: [...emails, ...response.emails],
       sanitizedPrompt: response.sanitizedPrompt,
     };
-  }
-
-  /**
-   * Caches the response to avoid redundant processing of frequently used prompts.
-   * @param cacheKey - The key used to store the cached response.
-   * @param response - The response to be cached.
-   */
-  private async cacheResponse(
-    cacheKey: string,
-    response: ModelSanitizedResponseDto,
-  ): Promise<void> {
-    await this.cacheManager.set(cacheKey, response, 3600); // Cache for 1 hour
   }
 
   /**
