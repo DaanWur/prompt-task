@@ -5,6 +5,7 @@
 This project is an LLM gateway that ensures prompt sanitization both before they are sent to an AI model and after responses are received.
 It runs in Docker using `docker-compose`, with `PostgreSQL` as the database and `NestJS` as the backend framework. Model execution is handled by `node-llama-cpp`, and during each `docker-compose` build, a predefined AI model is automatically downloaded and integrated into the container.
 Access to the API requires user registration and authentication, as all endpoints are secured with `JWT-based` authentication.
+To simplify the addition of new sanitization rules, I implemented the `Command` design pattern. This approach makes it easy to extend the sanitization logic by adding new commands without modifying existing code, ensuring flexibility and maintainability
 
 ## Instructions for Using the Service
 
@@ -122,6 +123,7 @@ npm run start
 - **Scalability:** Add support for multiple instances of the Llama model to handle increased load.
 - **Logging and Monitoring:** Integrate logging and monitoring tools to track service performance and errors.
 - **Database Integration:** Further enchance the use of Databace in order to store user sessions, logs, and other relevant data in a database.
+- **More sanitization methods:** The Command design pattern allows easy addition of new sanitization rules without modifying existing code.
 
 ## Performance Improvement Ideas
 
@@ -130,3 +132,13 @@ npm run start
 - **Resource Optimization:** Optimize resource usage by fine-tuning the Llama model and context creation processes.
 - **LLM integration:** Store the LLM on a separate machine to reduce initialization time.
 - **Prallelism:** Create a mechanism that handles many requests at once.
+
+## Testing:
+
+**In order to provide a soild service which can represent the state of the service to the business unit tests should be developed - It was not done in the scope of the assignment, basic tests were done**
+
+**Tests focous**
+
+- **Sanitization:** Test the sanitization on a large amount of emails icluding all kinds of examples.
+- **Model calls:** Test the integration with the local LLM.
+- **Large amount of requests:** Test the limits of the current project by creating performace tests in which will overload the server.
