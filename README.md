@@ -24,13 +24,15 @@ npm install
 1. **Set up environment variables:**
    Create a `.env` file in the root directory and add the following:
 
-`POSTGRES_USER=db user
+```
+POSTGRES_USER=db user
 POSTGRES_PASSWORD=db password
 POSTGRES_DB=db name
 JWT_CONSTANT=a constant to use for password hashing
 PORT=port-number
 DATABASE_URL=valid-RDBMS-connection-url
-LLM_NAME=your-llm-model-name`
+LLM_NAME=your-llm-model-name
+```
 
 1. **Build the project:**
    Use the following command to build the porject
@@ -67,25 +69,32 @@ npm run start
 
 - **register:** `http://localhost:8080/user/register`
   payload:
-  `{
-"email": email string,
-"firstName": string,
-"lastName": string,
-"password": string - minLength: 8, minLowercase: 1, minUppercase: 1, minSymbols: 1, minNumbers: 1,
-}`
+
+  ```{
+  "email": email string,
+  "firstName": string,
+  "lastName": string,
+  "password": string - minLength: 8, minLowercase: 1, minUppercase: 1, minSymbols: 1, minNumbers: 1,
+  }
+
+  ```
 
 - **login:** `http://localhost:8080/auth/login`  
    payload:
-  `{
+
+  ```{
    "email": string,
    "password": string
-}`
+  }
+
+  ```
 
 - **prompt:** `http://localhost:8080/prompt`
   payload:
-  `{
+  ```{
    "prompt": string
-}`
+  }
+  ```
 
 ## Technical Choices
 
