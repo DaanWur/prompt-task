@@ -70,7 +70,8 @@ npm run start
 - **register:** `http://localhost:8080/user/register`
   payload:
 
-  ```{
+  ```
+  {
   "email": email string,
   "firstName": string,
   "lastName": string,
@@ -82,7 +83,8 @@ npm run start
 - **login:** `http://localhost:8080/auth/login`  
    payload:
 
-  ```{
+  ```
+  {
    "email": string,
    "password": string
   }
@@ -91,7 +93,8 @@ npm run start
 
 - **prompt:** `http://localhost:8080/prompt`
   payload:
-  ```{
+  ```
+  {
    "prompt": string
   }
   ```
