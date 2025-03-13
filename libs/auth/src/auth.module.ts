@@ -25,7 +25,13 @@ import { AuthController } from './auth.controller';
     UserModule,
     PrismaModule,
   ],
-  providers: [AuthService, { provide: APP_GUARD, useClass: AuthGuard }],
+  providers: [
+    AuthService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
   exports: [AuthService],
   controllers: [AuthController],
 })

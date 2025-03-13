@@ -3,14 +3,13 @@ import {
   Controller,
   Get,
   HttpCode,
+  HttpException,
   HttpStatus,
   Logger,
   Post,
   Request,
-  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './guards/auth.guard';
 import { Public } from './guards/public.guard';
 import { UserLoginDto } from 'src/dtos/user/user-login.dto';
 
@@ -22,11 +21,16 @@ export class AuthController {
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  signIn(@Body() signInDto: UserLoginDto) {
-    return this.authService.signIn(signInDto.email, signInDto.password);
+  async signIn(@Body() signInDto: UserLoginDto) {
+    try {
+      return await this.authService.signIn(signInDto.email, signInDto.password);
+    } catch (error) {
+      const message = `Error: ${error.message}, Stack: ${error.stack}, Code: ${error.code}`;
+      this.logger.error(message);
+      throw new HttpException(message, HttpStatus.UNAUTHORIZED);
+    }
   }
 
-  @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@Request() req: any) {
     return req.user;
