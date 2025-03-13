@@ -68,7 +68,7 @@ npm run start
 
 **All endpoints besides register and login will be protected with a JWT token which will be recieved after login in order to use it set it as bearer token in postman**
 
-- **register:** `http://localhost:8080/user/register`
+- **register:** `http://localhost:8080/user/register`  POST
   payload:
 
   ```
@@ -81,7 +81,7 @@ npm run start
 
   ```
 
-- **login:** `http://localhost:8080/auth/login`  
+- **login:** `http://localhost:8080/auth/login`  POST
    payload:
 
   ```
@@ -92,13 +92,15 @@ npm run start
 
   ```
 
-- **prompt:** `http://localhost:8080/prompt`
+- **prompt:** `http://localhost:8080/prompt`  POST
   payload:
   ```
   {
    "prompt": string
   }
   ```
+
+- **profile:** `http://localhost:8080/auth/profile`  GET
 
 ## Technical Choices
 

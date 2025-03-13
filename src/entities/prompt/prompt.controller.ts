@@ -5,7 +5,6 @@ import {
   HttpStatus,
   Logger,
   Post,
-  UseGuards,
 } from '@nestjs/common';
 import { PromptService } from './prompt.service';
 import { PromptDto } from 'src/dtos/prompt/prompt.dto';

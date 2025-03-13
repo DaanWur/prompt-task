@@ -21,24 +21,18 @@ export class AuthService {
     access_token: string;
     userId: string;
   }> {
-    try {
-      const user = await this.usersService.findOneByEmail(email);
-      if (!user)
-        throw new UserNotFoundException(`User with email ${email} not found`);
-      const isPasswordMatching = await bcrypt.compare(pass, user.password);
-      if (!isPasswordMatching) {
-        throw new UnauthorizedException();
-      }
-
-      const payload = { sub: user.id, email: user.email };
-      return {
-        access_token: await this.jwtService.signAsync(payload),
-        userId: user.id.toString(),
-      };
-    } catch (error) {
-      const message = `Error: ${error.message}, Stack: ${error.stack}, Code: ${error.code}`;
-      this.logger.error(message);
-      throw error;
+    const user = await this.usersService.findOneByEmail(email);
+    if (!user)
+      throw new UserNotFoundException(`User with email ${email} not found`);
+    const isPasswordMatching = await bcrypt.compare(pass, user.password);
+    if (!isPasswordMatching) {
+      throw new UnauthorizedException();
     }
+
+    const payload = { sub: user.id, email: user.email };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+      userId: user.id.toString(),
+    };
   }
 }
