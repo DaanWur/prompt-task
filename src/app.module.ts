@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { UserModule } from './entities/user/user.module';
 import { AuthModule } from '@app/auth';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { PromptModule } from './entities/prompt/prompt.module';
 import { LlmModule } from './llm-model/llm.module';
 import { InvokerModule } from './sanitizers/invoker.module';
