@@ -115,6 +115,7 @@ npm run start
 ### Database
 
 - **PostgreSQL:** The service uses PostgreSQL for storing user data. The database is deployed using Docker for easy setup and management.
+- **Redis:** The service uses a caching module on a Redis DB. Using Redis was a more robust implementation than using the default in-memory cache.
 
 ## Limitations
 
@@ -132,7 +133,7 @@ npm run start
 
 ## Performance Improvement Ideas
 
-- **Caching:** Implement a more accurate caching mechanisms to store frequently requested responses and reduce model load times.
+- **Caching:** I used redis as the cache provider, using a cloud deployed service will be more efficient.
 - **Load Balancing:** Distribute incoming requests across multiple instances of the service to improve performance.
 - **Resource Optimization:** Optimize resource usage by fine-tuning the Llama model and context creation processes.
 - **LLM integration:** Store the LLM on a separate machine to reduce initialization time.
