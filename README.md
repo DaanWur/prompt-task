@@ -2,10 +2,11 @@
 
 ## Overview
 
-This project is an LLM gateway that ensures prompt sanitization both before they are sent to an AI model and after responses are received.
-It runs in Docker using `docker-compose`, with `PostgreSQL` as the database and `NestJS` as the backend framework. Model execution is handled by `node-llama-cpp`, and during each `docker-compose` build, a predefined AI model is automatically downloaded and integrated into the container.
+This project is an LLM gateway that ensures prompt sanitization before and after it is sent to an AI model.
+The project runs in Docker using `docker-compose` with `PostgreSQL` as the database and `NestJS` as the backend framework. Model execution is handled by `node-llama-cpp`, and during each `docker-compose` build, a predefined AI model is automatically downloaded and integrated into the container.
 Access to the API requires user registration and authentication, as all endpoints are secured with `JWT-based` authentication.
-To simplify the addition of new sanitization rules, I implemented the `Command` design pattern. This approach makes it easy to extend the sanitization logic by adding new commands without modifying existing code, ensuring flexibility and maintainability
+I implemented the `Command` design pattern to simplify adding new sanitization rules. This approach makes it easy to extend the sanitization logic by adding new commands without modifying existing code, ensuring flexibility and maintainability.
+To maintain service efficiency I also added a `Redis` instance to the `docker-compose` so the frequent responses will be stored.
 
 ## Instructions for Using the Service
 
